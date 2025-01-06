@@ -1,6 +1,6 @@
-/* Grundlegendes CSS */
+/* Allgemein */
 * {
-    box-sizing: border-box; /* Hilft bei responsive Layouts */
+    box-sizing: border-box;
   }
   
   body {
@@ -12,19 +12,18 @@
   }
   
   h1 {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 0 10px;
+    margin: 20px;
   }
   
-  /* Container für die Karte:
-     - Breite: max. 400px, oder 90% des Viewports.
-     - Höhe: dynamisch über "aspect-ratio" oder fix in px/vh.
-  */
+  h2 {
+    font-size: 1.1rem;
+    margin: 10px;
+  }
+  
   .flashcard-container {
     width: 90%;
-    max-width: 400px;  /* Auf größeren Bildschirmen max. 400px */
-    aspect-ratio: 4 / 3;  /* optional für Verhältnis 4:3 */
+    max-width: 400px;
+    aspect-ratio: 4 / 3;
     margin: 20px auto;
     perspective: 1000px;
   }
@@ -57,22 +56,20 @@
     padding: 10px;
   }
   
-  /* Unterschiedliche Farben für Vorder- und Rückseite */
   .front {
-    background: #fff9b3; /* z.B. Gelb */
+    background: #fff9b3;
   }
   
   .back {
-    background: #b3e6ff; /* z.B. Blau */
+    background: #b3e6ff;
     transform: rotateY(180deg);
   }
   
-  /* Button-Container */
   .buttons {
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Zeilenumbruch, falls Buttons nicht alle nebeneinander passen */
+    flex-wrap: wrap;
   }
   
   button {
@@ -84,28 +81,46 @@
     color: #fff;
     font-size: 1rem;
     cursor: pointer;
-    min-width: 100px; /* minimale Breite, damit Buttons nicht zu schmal werden */
+    min-width: 100px;
   }
   
   button:hover {
     background: #355fa8;
   }
   
+  /* Fortschrittsanzeige */
   #progress-info {
     font-weight: bold;
-    margin-top: 20px;
-    padding: 0 10px;
+    margin: 20px;
   }
   
-  /* Media Queries: Spezifische Anpassungen für kleine Bildschirme */
+  /* Container für Checkboxen */
+  .vocabularium-select-container {
+    width: 90%;
+    max-width: 400px;
+    margin: 20px auto;
+    text-align: left; /* linksbündig für die Checkboxen */
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  #vocabularium-checkboxes {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #vocabularium-checkboxes label {
+    margin: 5px 0;
+  }
+  
+  /* Media Query für kleine Bildschirme */
   @media (max-width: 600px) {
     h1 {
       font-size: 1.2rem;
-      margin-top: 15px;
-      margin-bottom: 15px;
+      margin: 15px;
     }
   
-    /* Etwas kleinere Schrift in den Flashcards, falls sehr schmal */
     .front,
     .back {
       font-size: 1rem;
@@ -114,6 +129,10 @@
     button {
       font-size: 0.9rem;
       padding: 8px 12px;
+    }
+  
+    .vocabularium-select-container {
+      width: 95%;
     }
   }
   

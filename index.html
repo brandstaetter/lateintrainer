@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta charset="UTF-8" />
   <title>Lateinvokabeln lernen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Lateinvokabeln: Flashcards</h1>
+  <h1>Lateinvokabeln: Flashcards mit Vocabularium-Auswahl</h1>
 
+  <!-- Container für die Flashcard -->
   <div class="flashcard-container">
     <div class="flashcard" id="flashcard">
       <div class="front" id="card-front">
@@ -22,6 +21,7 @@
     </div>
   </div>
 
+  <!-- Standard-Buttons für Navigation -->
   <div class="buttons">
     <button id="prev-btn">← Zurück</button>
     <button id="flip-btn">Umdrehen</button>
@@ -39,8 +39,16 @@
     <button id="toggle-filter-btn">Nur unbekannte Vokabeln</button>
   </div>
 
-  <!-- Anzeige des Fortschritts (z. B. 5 von 20 bekannt) -->
+  <!-- Anzeige des Fortschritts -->
   <p id="progress-info"></p>
+
+  <!-- Container für die Vocabularium-Checkboxen -->
+  <div class="vocabularium-select-container">
+    <h2>Vocabularia auswählen:</h2>
+    <div id="vocabularium-checkboxes">
+      <!-- Hier werden per JavaScript Checkboxen eingefügt -->
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
