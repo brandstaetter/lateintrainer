@@ -40,7 +40,7 @@ fetch("vokabeln.csv")
       progress = {}; 
     }
 
-    // HIER: Vokabeln mischen!
+    // Vokabeln mischen (Fisher-Yates-Shuffle)
     shuffleArray(vocabList);
 
     // Erste Karte anzeigen
@@ -55,9 +55,6 @@ fetch("vokabeln.csv")
 
 // --------------------------------------------------------------
 // CSV parse-Funktion
-//  - Splittet in Zeilen
-//  - Ignoriert leere Zeilen und "###"
-//  - Splittet am Semikolon in [latin, german]
 // --------------------------------------------------------------
 function parseCSV(csvString) {
   const lines = csvString
@@ -95,7 +92,7 @@ function showCard(index) {
   // Hole die aktuell relevante Liste (alle oder nur unbekannte)
   const currentList = getCurrentVocabList();
 
-  // Edge-Case: Falls keine Vokabeln mehr in der gefilterten Liste sind
+  // Falls keine Vokabeln im Filter sind
   if (currentList.length === 0) {
     cardFront.textContent = "Keine Vokabeln";
     cardBack.textContent = "im Filter!";
@@ -121,7 +118,7 @@ function showCard(index) {
   // Ggf. zurückdrehen
   flashcard.classList.remove("flipped");
 
-  // Randfarbe je nach Fortschritt
+  // Randfarbe je nach Lernstatus
   const status = progress[vocab.latin];
   if (status === "known") {
     flashcard.style.border = "5px solid green";
@@ -151,15 +148,13 @@ function getCurrentVocabList() {
 // --------------------------------------------------------------
 function markAsKnown() {
   const currentList = getCurrentVocabList();
-  if (currentList.length === 0) return; // Keine Vokabeln im Filter
+  if (currentList.length === 0) return; 
 
   const vocab = currentList[currentIndex];
   progress[vocab.latin] = "known";
 
-  // Speichern in localStorage
   localStorage.setItem("vocabProgress", JSON.stringify(progress));
 
-  // UI updaten
   showCard(currentIndex);
   updateProgressUI();
 }
@@ -171,10 +166,8 @@ function markAsUnknown() {
   const vocab = currentList[currentIndex];
   progress[vocab.latin] = "unknown";
 
-  // Speichern in localStorage
   localStorage.setItem("vocabProgress", JSON.stringify(progress));
 
-  // UI updaten
   showCard(currentIndex);
   updateProgressUI();
 }
@@ -194,7 +187,6 @@ function updateProgressUI() {
     }
   }
 
-  // Text in progressInfo
   const msg = `Bekannte Vokabeln: ${knownCount} / ${total} | 
                Unbekannte: ${unknownCount} | 
                Unmarkiert: ${total - knownCount - unknownCount}`;
@@ -227,7 +219,6 @@ toggleFilterBtn.addEventListener("click", () => {
   } else {
     toggleFilterBtn.textContent = "Nur unbekannte Vokabeln";
   }
-  // Beim Umschalten fangen wir sicherheitshalber bei Index 0 an
   currentIndex = 0;
   showCard(currentIndex);
 });
