@@ -8,24 +8,36 @@
 <body>
   <h1>Lateinvokabeln: Flashcards</h1>
 
-  <!-- Container für die Flashcard-Anzeige -->
   <div class="flashcard-container">
     <div class="flashcard" id="flashcard">
       <div class="front" id="card-front">
-        <!-- Vorderseite: z. B. Latein -->
+        <!-- Latein -->
       </div>
       <div class="back" id="card-back">
-        <!-- Rückseite: z. B. Deutsch -->
+        <!-- Deutsch -->
       </div>
     </div>
   </div>
 
-  <!-- Buttons zum Steuern der Flashcards -->
   <div class="buttons">
     <button id="prev-btn">← Zurück</button>
     <button id="flip-btn">Umdrehen</button>
     <button id="next-btn">Weiter →</button>
   </div>
+
+  <!-- Buttons für Lernstatus -->
+  <div class="buttons">
+    <button id="known-btn">Gewusst</button>
+    <button id="unknown-btn">Nicht gewusst</button>
+  </div>
+
+  <!-- Button für Filtern nach unbekannten Vokabeln -->
+  <div class="buttons">
+    <button id="toggle-filter-btn">Nur unbekannte Vokabeln</button>
+  </div>
+
+  <!-- Anzeige des Fortschritts (z. B. 5 von 20 bekannt) -->
+  <p id="progress-info"></p>
 
   <script src="script.js"></script>
 </body>
