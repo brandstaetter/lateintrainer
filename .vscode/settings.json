@@ -1,5 +1,10 @@
 {
     "[csv (semicolon)]": {
         "editor.inlayHints.maximumLength": 0
+    },
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#123501",
+        "titleBar.activeBackground": "#194A01",
+        "titleBar.activeForeground": "#F0FFE8"
     }
 }
