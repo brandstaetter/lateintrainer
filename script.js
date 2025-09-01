@@ -140,22 +140,27 @@ function discoverNewGroups() {
 
   // Nur wenn sich etwas geändert hat, speichern
   if (changed) {
-    // discoveredVocabGroups sortieren für bessere Übersicht
-    discoveredVocabGroups.sort();
+    // discoveredVocabGroups numerisch sortieren für bessere Übersicht
+    discoveredVocabGroups.sort((a, b) => {
+      // Extrahiere Nummern aus "Vocabularium X" Format
+      const numA = parseInt(a.match(/\d+/)?.[0] || 0);
+      const numB = parseInt(b.match(/\d+/)?.[0] || 0);
+      return numA - numB;
+    });
     localStorage.setItem("discoveredVocabGroups", JSON.stringify(discoveredVocabGroups));
     saveSelectedVocabSets();
   }
 }
 
 // --------------------------------------------------------------
-// Checkboxes bauen (alphabetisch sortiert -> discoveredVocabGroups)
+// Checkboxes bauen (numerisch sortiert -> discoveredVocabGroups)
 // --------------------------------------------------------------
 function buildVocabulariumCheckboxes() {
   // Zuerst evtl. alten Inhalt leeren
   vocabulariumCheckboxesContainer.innerHTML = "";
 
-  // discoveredVocabGroups ist bereits sortiert (s. discoverNewGroups).
-  // Wir iterieren nun in Alphabetischer Reihenfolge:
+  // discoveredVocabGroups ist bereits numerisch sortiert (s. discoverNewGroups).
+  // Wir iterieren nun in numerischer Reihenfolge:
   for (const groupName of discoveredVocabGroups) {
     const label = document.createElement("label");
     const checkbox = document.createElement("input");
