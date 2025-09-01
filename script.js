@@ -49,11 +49,17 @@ fetch("vokabeln.csv")
       progress = {};
     }
 
-    // 1b) discoveredVocabGroups laden
+    // 1b) discoveredVocabGroups laden und numerisch sortieren
     //     (Falls nicht vorhanden, als leeres Array initialisieren)
     const storedDiscovered = localStorage.getItem("discoveredVocabGroups");
     if (storedDiscovered) {
       discoveredVocabGroups = JSON.parse(storedDiscovered);
+      // Numerisch sortieren für korrekte Reihenfolge
+      discoveredVocabGroups.sort((a, b) => {
+        const numA = parseInt(a.match(/\d+/)?.[0] || 0);
+        const numB = parseInt(b.match(/\d+/)?.[0] || 0);
+        return numA - numB;
+      });
     } else {
       discoveredVocabGroups = [];
     }
