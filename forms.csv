@@ -1,30 +1,30 @@
 ### Vocabularium 1
-schola;Noun;2nd F;schola|scholae|scholae|scholam|schola|scholae|scholae|scholarum|scholis|scholas|scholae|scholis
-amica;Noun;2nd F;amica|amicae|amicae|amicam|amica|amicae|amicae|amicarum|amicis|amicas|amicae|amicis
-discipula;Noun;2nd F;discipula|discipulae|discipulae|discipulam|discipula|discipulae|discipulae|discipularum|discipulis|discipulas|discipulae|discipulis
-pensum;Noun;2nd N;pensum|pensi|penso|pensum|pensum|penso|pensa|pensorum|pensis|pensa|pensa|pensis
-amicus;Noun;2nd M;amicus|amici|amico|amicum|amice|amico|amici|amicorum|amicis|amicos|amici|amicis
-discipulus;Noun;2nd M;discipulus|discipuli|discipulo|discipulum|discipule|discipulo|discipuli|discipulorum|discipulis|discipulos|discipuli|discipulis
+schola;Noun;2nd F;schola|scholae|scholae|scholam|schola|scholā|scholae|scholarum|scholis|scholas|scholae|scholis
+amica;Noun;2nd F;amica|amicae|amicae|amicam|amica|amicā|amicae|amicarum|amicis|amicas|amicae|amicis
+discipula;Noun;2nd F;discipula|discipulae|discipulae|discipulam|discipula|discipulā|discipulae|discipularum|discipulis|discipulas|discipulae|discipulis
+pensum;Noun;2nd N;pensum|pensi|penso|pensum|pensum|pensō|pensa|pensorum|pensis|pensa|pensa|pensis
+amicus;Noun;2nd M;amicus|amici|amico|amicum|amice|amicō|amici|amicorum|amicis|amicos|amici|amicis
+discipulus;Noun;2nd M;discipulus|discipuli|discipulo|discipulum|discipule|discipulō|discipuli|discipulorum|discipulis|discipulos|discipuli|discipulis
 
 ### Vocabularium 2
-magister;Noun;2nd M;magister|magistri|magistro|magistrum|magister|magistro|magistri|magistrorum|magistris|magistros|magistri|magistris
-lingua;Noun;2nd F;lingua|linguae|linguae|linguam|lingua|linguae|linguae|linguarum|linguis|linguas|linguis|linguae
-liber;Noun;2nd M;liber|libri|libro|librum|liber|libro|libri|librorum|libris|libros|libri|libris
-verbum;Noun;2nd N;verbum|verbi|verbo|verbum|verbum|verbo|verba|verborum|verbis|verba|verba|verbis
-puer;Noun;2nd M;puer|pueri|puero|puerum|puer|puero|pueri|puerorum|pueris|pueros|pueri|pueris
-puella;Noun;2nd F;puella|puellae|puellae|puellam|puella|puellae|puellae|puellarum|puellis|puellas|puellis|puellae
-oculus;Noun;2nd M;oculus|oculi|oculo|oculum|ocule|oculo|oculi|oculorum|oculis|oculos|oculi|oculis
+magister;Noun;2nd M;magister|magistri|magistro|magistrum|magister|magistrō|magistri|magistrorum|magistris|magistros|magistri|magistris
+lingua;Noun;2nd F;lingua|linguae|linguae|linguam|lingua|linguā|linguae|linguarum|linguis|linguas|linguis|linguae
+liber;Noun;2nd M;liber|libri|libro|librum|liber|librō|libri|librorum|libris|libros|libri|libris
+verbum;Noun;2nd N;verbum|verbi|verbo|verbum|verbum|verbō|verba|verborum|verbis|verba|verba|verbis
+puer;Noun;2nd M;puer|pueri|puero|puerum|puer|puerō|pueri|puerorum|pueris|pueros|pueri|pueris
+puella;Noun;2nd F;puella|puellae|puellae|puellam|puella|puellā|puellae|puellarum|puellis|puellas|puellis|puellae
+oculus;Noun;2nd M;oculus|oculi|oculo|oculum|ocule|oculō|oculi|oculorum|oculis|oculos|oculi|oculis
 
 ### Vocabularium 3
-Roma;Noun;1st F;Roma|Romae|Romae|Romam|Roma|Romae|Romae|Romarum|Romis|Romas|Romis|Romae
-via;Noun;1st F;via|viae|viae|viam|via|viae|viae|viarum|viis|vias|viis|viae
-aedificium;Noun;2nd N;aedificium|aedificii|aedificio|aedificium|aedificium|aedificio|aedificia|aedificiorum|aedificiis|aedificia|aedificia|aedificiis
-spectaculum;Noun;2nd N;spectaculum|spectaculi|spectaculo|spectaculum|spectaculum|spectaculo|spectacula|spectaculorum|spectaculis|spectacula|spectacula|spectaculis
-statua;Noun;1st F;statua|statuae|statuae|statuam|statua|statuae|statuae|statuarum|statuis|statuas|statuis|statuae
+Roma;Noun;1st F;Roma|Romae|Romae|Romam|Roma|Romā|Romae|Romarum|Romis|Romas|Romis|Romae
+via;Noun;1st F;via|viae|viae|viam|via|viā|viae|viarum|viis|vias|viis|viae
+aedificium;Noun;2nd N;aedificium|aedificii|aedificio|aedificium|aedificium|aedificiō|aedificia|aedificiorum|aedificiis|aedificia|aedificia|aedificiis
+spectaculum;Noun;2nd N;spectaculum|spectaculi|spectaculo|spectaculum|spectaculum|spectaculō|spectacula|spectaculorum|spectaculis|spectacula|spectacula|spectaculis
+statua;Noun;1st F;statua|statuae|statuae|statuam|statua|statuā|statuae|statuarum|statuis|statuas|statuis|statuae
 
 ### Vocabularium 4
-mensa;Noun;1st F;mensa|mensae|mensae|mensam|mensa|mensae|mensae|mensarum|mensis|mensas|mensis|mensae
-amicitia;Noun;3rd F;amicitia|amicitiae|amicitiae|amicitiam|amicitia|amicitiae|amicitiae|amicitiarum|amicitiis|amicitias|amicitiae|amicitiis
+mensa;Noun;1st F;mensa|mensae|mensae|mensam|mensa|mensā|mensae|mensarum|mensis|mensas|mensis|mensae
+amicitia;Noun;3rd F;amicitia|amicitiae|amicitiae|amicitiam|amicitia|amicitiā|amicitiae|amicitiarum|amicitiis|amicitias|amicitiae|amicitiis
 virtus;Noun;3rd F;virtus|virtutis|virtuti|virtutem|virtus|virtute|virtutes|virtutum|virtutibus|virtutes|virtutes|virtutibus
 consul;Noun;3rd M;consul|consulis|consuli|consulem|consul|consule|consules|consulum|consulibus|consules|consules|consulibus
 lex;Noun;3rd F;lex|legis|legi|legem|lex|lege|leges|legum|legibus|leges|leges|legibus
@@ -35,7 +35,7 @@ pater;Noun;3rd M;pater|patris|patri|patrem|pater|patre|patres|patrum|patribus|pa
 mater;Noun;3rd F;mater|matris|matri|matrem|mater|matre|matres|matrum|matribus|matres|matres|matribus
 frater;Noun;3rd M;frater|fratris|fratri|fratrem|frater|fratre|fratres|fratrum|fratribus|fratres|fratres|fratribus
 urbs;Noun;3rd F;urbs|urbis|urbi|urbem|urbs|urbe|urbes|urbium|urbibus|urbes|urbes|urbibus
-mare;Noun;3rd N;mare|maris|mari|mare|mare|mari|maria|marium|maribus|maria|maria|maribus
+mare;Noun;3rd N;mare|maris|marī|mare|mare|marī|maria|marium|maribus|maria|maria|maribus
 
 ### Vocabularium 6
 sedet;Verb;1st Conj;sedeo|sedes|sedet|sedemus|sedetis|sedent|sedi|sedisti|sedit|sedimus|sedistis|sederunt|sederam|sederas|sederat|sederamus|sederatis|sederant|sedebo|sedebis|sedebit|sedebimus|sedebitis|sedebunt
