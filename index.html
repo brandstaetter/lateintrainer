@@ -6,43 +6,57 @@
   <meta charset="UTF-8" />
   <title>Lateinvokabeln lernen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>Lateinvokabeln: Flashcards mit Vocabularium-Auswahl</h1>
 
   <!-- Container für die Flashcard -->
-  <div class="flashcard-container">
-    <div class="flashcard" id="flashcard">
-      <div class="front" id="card-front">
+  <div class="flashcard-container" role="main" aria-label="Vokabel-Trainer">
+    <div class="flashcard" id="flashcard" role="region" aria-label="Flashcard" tabindex="0">
+      <div class="front" id="card-front" aria-label="Vorderseite">
         <!-- Latein -->
       </div>
-      <div class="back" id="card-back">
+      <div class="back" id="card-back" aria-label="Rückseite">
         <!-- Deutsch -->
       </div>
     </div>
   </div>
 
   <!-- Standard-Buttons für Navigation -->
-  <div class="buttons">
-    <button id="prev-btn">← Zurück</button>
-    <button id="flip-btn">Umdrehen</button>
-    <button id="next-btn">Weiter →</button>
+  <div class="buttons" role="toolbar" aria-label="Navigation">
+    <button id="prev-btn" aria-label="Vorherige Vokabel (Pfeil links)">← Zurück</button>
+    <button id="flip-btn" aria-label="Karte umdrehen (Leertaste)">Umdrehen</button>
+    <button id="next-btn" aria-label="Nächste Vokabel (Pfeil rechts)">Weiter →</button>
   </div>
 
   <!-- Buttons für Lernstatus -->
-  <div class="buttons">
-    <button id="known-btn">Gewusst</button>
-    <button id="unknown-btn">Nicht gewusst</button>
+  <div class="buttons" role="toolbar" aria-label="Lernstatus">
+    <button id="known-btn" aria-label="Als gewusst markieren (Taste K)">Gewusst ✓</button>
+    <button id="unknown-btn" aria-label="Als nicht gewusst markieren (Taste U)">Nicht gewusst ✗</button>
   </div>
 
   <!-- Button für Filtern nach unbekannten Vokabeln -->
-  <div class="buttons">
-    <button id="toggle-filter-btn">Nur unbekannte Vokabeln</button>
+  <div class="buttons" role="toolbar" aria-label="Filter">
+    <button id="toggle-filter-btn" aria-label="Filter umschalten (Taste F)">Nur unbekannte Vokabeln</button>
   </div>
 
   <!-- Anzeige des Fortschritts -->
-  <p id="progress-info"></p>
+  <p id="progress-info" role="status" aria-live="polite" aria-atomic="true"></p>
+  
+  <!-- Keyboard-Hilfe -->
+  <details class="keyboard-help">
+    <summary>Tastenkürzel</summary>
+    <ul>
+      <li><kbd>Leertaste</kbd> / <kbd>Enter</kbd> – Karte umdrehen</li>
+      <li><kbd>←</kbd> / <kbd>↑</kbd> – Vorherige Vokabel</li>
+      <li><kbd>→</kbd> / <kbd>↓</kbd> – Nächste Vokabel</li>
+      <li><kbd>K</kbd> – Als gewusst markieren (weiter)</li>
+      <li><kbd>U</kbd> – Als nicht gewusst markieren</li>
+      <li><kbd>F</kbd> – Filter umschalten</li>
+    </ul>
+  </details>
 
   <!-- Container für die Vocabularium-Checkboxen -->
   <div class="vocabularium-select-container">
