@@ -592,3 +592,925 @@ function updateCardAccessibility(vocab) {
   cardFront.setAttribute('aria-label', `Latein: ${vocab.latin}. Status: ${statusText}. Leertaste zum Umdrehen.`);
   cardBack.setAttribute('aria-label', `Deutsch: ${vocab.german}`);
 }
+
+// ==============================================================
+// FORMS MODE: Deklination & Konjugation
+// ==============================================================
+
+// --------------------------------------------------------------
+// Konstanten für Forms Mode
+// --------------------------------------------------------------
+const FORMS_STORAGE_KEYS = {
+  PROGRESS: 'formsProgress_v1',     // { wordKey: { solved: bool, attempts: int } }
+  FILTER_SOLVED: 'formsFilterSolved' // bool: hide solved words
+};
+
+// --------------------------------------------------------------
+// Globale Variablen für Forms Mode
+// --------------------------------------------------------------
+let formsData = [];              // Alle Form-Einträge aus forms.csv
+let formsCurrentIndex = 0;       // Aktuelle Position
+let formsProgress = {};          // Fortschritt: { "Vocabularium 1|schola": { solved: true, attempts: 2 } }
+let currentFormsWord = null;     // Aktuelles Wort mit Formen
+let droppedForms = new Map();    // cellIndex -> droppedForm
+// Note: formsFilterSolved is the checkbox element reference, not a boolean
+
+// --------------------------------------------------------------
+// DOM-Elemente für Forms Mode
+// --------------------------------------------------------------
+const modeFlashcardsBtn = document.getElementById('mode-flashcards');
+const modeFormsBtn = document.getElementById('mode-forms');
+const flashcardMode = document.getElementById('flashcard-mode');
+const formsMode = document.getElementById('forms-mode');
+const flashcardHelp = document.getElementById('flashcard-help');
+const formsHelp = document.getElementById('forms-help');
+
+const formsWordTitle = document.getElementById('forms-word-title');
+const formsWordType = document.getElementById('forms-word-type');
+const draggableForms = document.getElementById('draggable-forms');
+const formsGrid = document.getElementById('forms-grid');
+const formsHeader = document.getElementById('forms-header');
+const formsBody = document.getElementById('forms-body');
+const formsFeedback = document.getElementById('forms-feedback');
+const formsCheckBtn = document.getElementById('forms-check-btn');
+const formsHintBtn = document.getElementById('forms-hint-btn');
+const formsResetBtn = document.getElementById('forms-reset-btn');
+const formsSkipBtn = document.getElementById('forms-skip-btn');
+const formsFilterSolved = document.getElementById('forms-filter-solved');
+
+// --------------------------------------------------------------
+// Forms CSV laden
+// --------------------------------------------------------------
+async function loadFormsCSV() {
+  try {
+    const response = await fetch('forms.csv');
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const text = await response.text();
+    formsData = parseFormsCSV(text);
+    console.log(`Forms CSV geladen: ${formsData.length} Einträge`);
+  } catch (error) {
+    console.error('Fehler beim Laden von forms.csv:', error);
+    formsFeedback.textContent = 'Fehler: forms.csv konnte nicht geladen werden.';
+    formsFeedback.className = 'forms-feedback error';
+  }
+}
+
+// --------------------------------------------------------------
+// Forms CSV parsen
+// Format: word;type;subtype;form1|form2|form3|...
+// --------------------------------------------------------------
+function parseFormsCSV(csvText) {
+  const lines = csvText.split(/\r?\n/);
+  const result = [];
+  let currentGroup = '';
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+
+    // Header: ### Vocabularium N
+    if (trimmed.startsWith('###')) {
+      currentGroup = trimmed.replace('###', '').trim();
+      continue;
+    }
+
+    // Datenzeile: word;type;subtype;forms
+    const parts = trimmed.split(';');
+    if (parts.length >= 4) {
+      const [word, type, subtype, formsStr] = parts;
+      const forms = formsStr.split('|').map(f => f.trim()).filter(f => f);
+      
+      result.push({
+        group: currentGroup,
+        word: word.trim(),
+        type: type.trim(),
+        subtype: subtype.trim(),
+        forms: forms
+      });
+    }
+  }
+
+  return result;
+}
+
+// --------------------------------------------------------------
+// Modus-Umschaltung
+// --------------------------------------------------------------
+function switchMode(mode) {
+  if (mode === 'flashcards') {
+    flashcardMode.classList.add('active');
+    formsMode.classList.remove('active');
+    modeFlashcardsBtn.classList.add('active');
+    modeFlashcardsBtn.setAttribute('aria-selected', 'true');
+    modeFormsBtn.classList.remove('active');
+    modeFormsBtn.setAttribute('aria-selected', 'false');
+    flashcardHelp.classList.remove('hidden');
+    formsHelp.classList.add('hidden');
+  } else {
+    flashcardMode.classList.remove('active');
+    formsMode.classList.add('active');
+    modeFlashcardsBtn.classList.remove('active');
+    modeFlashcardsBtn.setAttribute('aria-selected', 'false');
+    modeFormsBtn.classList.add('active');
+    modeFormsBtn.setAttribute('aria-selected', 'true');
+    flashcardHelp.classList.add('hidden');
+    formsHelp.classList.remove('hidden');
+    
+    // Forms Mode initialisieren wenn nötig
+    if (formsData.length === 0) {
+      loadFormsCSV().then(() => {
+        initFormsMode();
+      });
+    } else {
+      initFormsMode();
+    }
+  }
+}
+
+// --------------------------------------------------------------
+// Forms Mode initialisieren
+// --------------------------------------------------------------
+function initFormsMode() {
+  // Progress laden
+  formsProgress = safeJSONParse(FORMS_STORAGE_KEYS.PROGRESS, {});
+  formsFilterSolved.checked = safeJSONParse(FORMS_STORAGE_KEYS.FILTER_SOLVED, false);
+  
+  // Erstes Wort anzeigen
+  showNextFormsWord();
+}
+
+// --------------------------------------------------------------
+// Nächstes Wort im Forms Mode anzeigen
+// --------------------------------------------------------------
+function showNextFormsWord() {
+  const availableWords = getAvailableFormsWords();
+  
+  if (availableWords.length === 0) {
+    showFormsEmptyState();
+    return;
+  }
+  
+  // Zufälliges Wort auswählen (oder sequentiell)
+  formsCurrentIndex = Math.floor(Math.random() * availableWords.length);
+  currentFormsWord = availableWords[formsCurrentIndex];
+  
+  renderFormsGame();
+}
+
+// --------------------------------------------------------------
+// Verfügbare Wörter für Forms Mode (mit Filter)
+// --------------------------------------------------------------
+function getAvailableFormsWords() {
+  return formsData.filter(item => {
+    // Nur ausgewählte Vocabularia
+    if (!selectedVocabSets.has(item.group)) return false;
+    
+    // Filter: gelöste ausblenden
+    if (formsFilterSolved.checked) {
+      const key = `${item.group}|${item.word}`;
+      const prog = formsProgress[key];
+      if (prog && prog.solved) return false;
+    }
+    
+    return true;
+  });
+}
+
+// --------------------------------------------------------------
+// Empty State für Forms Mode
+// --------------------------------------------------------------
+function showFormsEmptyState() {
+  formsWordTitle.textContent = 'Keine Wörter verfügbar';
+  formsWordType.textContent = formsFilterSolved.checked 
+    ? 'Alle verfügbaren Wörter wurden gelöst! Filter deaktivieren um alle zu sehen.'
+    : 'Bitte wähle Vocabularia aus (unten).';
+  
+  draggableForms.innerHTML = '';
+  formsHeader.innerHTML = '';
+  formsBody.innerHTML = '';
+  formsFeedback.textContent = '';
+  formsFeedback.className = 'forms-feedback';
+  
+  formsCheckBtn.disabled = true;
+  formsResetBtn.disabled = true;
+}
+
+// --------------------------------------------------------------
+// Forms Game rendern (Grid + Draggables)
+// --------------------------------------------------------------
+function renderFormsGame() {
+  if (!currentFormsWord) return;
+  
+  const word = currentFormsWord;
+  const key = `${word.group}|${word.word}`;
+  const progress = formsProgress[key] || { solved: false, attempts: 0 };
+  
+  // Titel und Typ
+  formsWordTitle.textContent = `Wort: ${word.word}`;
+  const typeLabel = word.type === 'Noun' ? 'Substantiv' : 'Verb';
+  formsWordType.textContent = `Typ: ${typeLabel} (${word.subtype}) - ${word.group}`;
+  
+  // Feedback zurücksetzen
+  formsFeedback.textContent = progress.solved 
+    ? `Bereits gelöst (Versuche: ${progress.attempts})`
+    : 'Ziehe die Formen in die richtigen Felder';
+  formsFeedback.className = progress.solved ? 'forms-feedback success' : 'forms-feedback info';
+  
+  // Buttons aktivieren
+  formsCheckBtn.disabled = progress.solved;
+  formsResetBtn.disabled = false;
+  formsSkipBtn.textContent = 'Überspringen';
+
+  // Draggables erstellen
+  createDraggableForms(word);
+
+  // Grid erstellen
+  createFormsGrid(word);
+
+  // Drop-Zone für Pool einrichten (zum Zurückziehen)
+  setupPoolDropZone();
+
+  // Dropped Forms zurücksetzen
+  droppedForms = new Map();
+}
+
+// --------------------------------------------------------------
+// Pool als Drop-Zone einrichten (für Zurückziehen aus Zellen)
+// --------------------------------------------------------------
+function setupPoolDropZone() {
+  const pool = document.getElementById('draggable-forms');
+  if (!pool) return;
+
+  pool.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    pool.classList.add('drag-over');
+  });
+
+  pool.addEventListener('dragleave', () => {
+    pool.classList.remove('drag-over');
+  });
+
+  pool.addEventListener('drop', (e) => {
+    e.preventDefault();
+    pool.classList.remove('drag-over');
+
+    const form = e.dataTransfer.getData('text/plain');
+    const sourceCellIndex = e.dataTransfer.getData('source-cell');
+
+    if (sourceCellIndex) {
+      // Aus Zelle entfernen
+      droppedForms.delete(sourceCellIndex);
+      const sourceCell = document.querySelector(`.drop-zone[data-index="${sourceCellIndex}"]`);
+      if (sourceCell) {
+        sourceCell.innerHTML = '';
+        sourceCell.classList.remove('correct', 'incorrect');
+      }
+
+      // Im Pool freigeben
+      releaseDraggableItem(form);
+    }
+  });
+}
+
+// --------------------------------------------------------------
+// Draggable Formen erstellen
+// --------------------------------------------------------------
+function createDraggableForms(word) {
+  draggableForms.innerHTML = '';
+  
+  // Alle korrekten Formen + ein paar falsche (distractors)
+  const correctForms = [...word.forms];
+  const distractors = generateDistractors(word);
+  const allForms = shuffleArray([...correctForms, ...distractors]);
+  
+  allForms.forEach((form, index) => {
+    const item = document.createElement('div');
+    item.className = 'draggable-item';
+    item.textContent = form;
+    item.draggable = true;
+    item.dataset.form = form;
+    item.dataset.index = index;
+    
+    // Drag Events
+    item.addEventListener('dragstart', handleDragStart);
+    item.addEventListener('dragend', handleDragEnd);
+    
+    // Touch Events für Mobile
+    item.addEventListener('touchstart', handleTouchStart, { passive: false });
+    item.addEventListener('touchmove', handleTouchMove, { passive: false });
+    item.addEventListener('touchend', handleTouchEnd);
+    
+    draggableForms.appendChild(item);
+  });
+}
+
+// --------------------------------------------------------------
+// Falsche Formen (Distractors) generieren
+// --------------------------------------------------------------
+function generateDistractors(word) {
+  const distractors = [];
+  
+  if (word.type === 'Noun') {
+    // Typische Fehler: falsche Endungen
+    const endings = ['a', 'ae', 'am', 'ā', 'ī', 'ō', 'um', 'ō', 'us', 'ī', 'ō', 'um'];
+    const stems = word.forms.map(f => f.replace(/[aeiouāēīōū]$/, ''));
+    
+    for (let i = 0; i < 3; i++) {
+      const stem = stems[Math.floor(Math.random() * stems.length)];
+      const ending = endings[Math.floor(Math.random() * endings.length)];
+      const fake = stem + ending;
+      if (!word.forms.includes(fake) && !distractors.includes(fake)) {
+        distractors.push(fake);
+      }
+    }
+  } else if (word.type === 'Verb') {
+    // Typische Fehler: falsche Konjugation
+    const fakeEndings = ['o', 's', 't', 'mus', 'tis', 'nt', 'bam', 'bas', 'bat', 'bamus', 'batis', 'bant'];
+    const stem = word.word.replace(/(o|or)$/, '');
+    
+    for (let i = 0; i < 4; i++) {
+      const ending = fakeEndings[Math.floor(Math.random() * fakeEndings.length)];
+      const fake = stem + ending;
+      if (!word.forms.includes(fake) && !distractors.includes(fake)) {
+        distractors.push(fake);
+      }
+    }
+  }
+  
+  return distractors.slice(0, 4); // Max 4 Distractors
+}
+
+// --------------------------------------------------------------
+// Forms Grid erstellen (Kasus oder Personen)
+// --------------------------------------------------------------
+function createFormsGrid(word) {
+  formsHeader.innerHTML = '';
+  formsBody.innerHTML = '';
+  
+  if (word.type === 'Noun') {
+    createNounGrid(word);
+  } else if (word.type === 'Verb') {
+    createVerbGrid(word);
+  }
+}
+
+// --------------------------------------------------------------
+// Substantiv-Grid (Deklination)
+// --------------------------------------------------------------
+function createNounGrid(word) {
+  // Header: Singular / Plural
+  const thEmpty = document.createElement('th');
+  thEmpty.textContent = 'Kasus';
+  formsHeader.appendChild(thEmpty);
+  
+  const thSing = document.createElement('th');
+  thSing.textContent = 'Singular';
+  formsHeader.appendChild(thSing);
+  
+  const thPlur = document.createElement('th');
+  thPlur.textContent = 'Plural';
+  formsHeader.appendChild(thPlur);
+  
+  // Kasus-Reihenfolge (wie in CSV: N-G-D-A-V-Abl)
+  const cases = ['Nominativ', 'Genitiv', 'Dativ', 'Akkusativ', 'Vokativ', 'Ablativ'];
+  const singForms = word.forms.slice(0, 6);
+  const plurForms = word.forms.slice(6, 12);
+  
+  cases.forEach((casus, index) => {
+    const row = document.createElement('tr');
+    
+    // Kasus-Label
+    const th = document.createElement('th');
+    th.textContent = casus;
+    row.appendChild(th);
+    
+    // Singular
+    const tdSing = document.createElement('td');
+    tdSing.className = 'drop-zone';
+    tdSing.dataset.case = casus;
+    tdSing.dataset.number = 'Singular';
+    tdSing.dataset.index = index;
+    tdSing.dataset.correct = singForms[index] || '';
+    setupDropZone(tdSing);
+    row.appendChild(tdSing);
+    
+    // Plural
+    const tdPlur = document.createElement('td');
+    tdPlur.className = 'drop-zone';
+    tdPlur.dataset.case = casus;
+    tdPlur.dataset.number = 'Plural';
+    tdPlur.dataset.index = index + 6;
+    tdPlur.dataset.correct = plurForms[index] || '';
+    setupDropZone(tdPlur);
+    row.appendChild(tdPlur);
+    
+    formsBody.appendChild(row);
+  });
+}
+
+// --------------------------------------------------------------
+// Verb-Grid (Konjugation)
+// --------------------------------------------------------------
+function createVerbGrid(word) {
+  const forms = word.forms;
+  // forms[0-5] = Präsens Indikativ Aktiv (1.-3. Sg + 1.-3. Pl)
+  // forms[6-11] = Perfekt
+  // forms[12-17] = Plusquamperfekt
+  // forms[18-23] = Futur I
+  
+  const tempi = ['Präsens', 'Perfekt', 'Plusquamperfekt', 'Futur I'];
+  const personen = ['1. Person Sg', '2. Person Sg', '3. Person Sg', 
+                    '1. Person Pl', '2. Person Pl', '3. Person Pl'];
+  
+  // Header: Personen
+  const thEmpty = document.createElement('th');
+  thEmpty.textContent = 'Person';
+  formsHeader.appendChild(thEmpty);
+  
+  tempi.forEach(tempus => {
+    const th = document.createElement('th');
+    th.textContent = tempus;
+    formsHeader.appendChild(th);
+  });
+  
+  // Zeilen: Personen
+  for (let p = 0; p < 6; p++) {
+    const row = document.createElement('tr');
+    
+    const th = document.createElement('th');
+    th.textContent = personen[p];
+    row.appendChild(th);
+    
+    tempi.forEach((tempus, t) => {
+      const td = document.createElement('td');
+      td.className = 'drop-zone';
+      td.dataset.person = personen[p];
+      td.dataset.tempus = tempus;
+      td.dataset.index = t * 6 + p;
+      td.dataset.correct = forms[t * 6 + p] || '';
+      setupDropZone(td);
+      row.appendChild(td);
+    });
+    
+    formsBody.appendChild(row);
+  }
+}
+
+// --------------------------------------------------------------
+// Drop Zone Setup
+// --------------------------------------------------------------
+function setupDropZone(element) {
+  element.addEventListener('dragover', handleDragOver);
+  element.addEventListener('dragenter', handleDragEnter);
+  element.addEventListener('dragleave', handleDragLeave);
+  element.addEventListener('drop', handleDrop);
+}
+
+// --------------------------------------------------------------
+// Drag & Drop Event Handler
+// --------------------------------------------------------------
+let draggedItem = null;
+let touchDragItem = null;
+
+function handleDragStart(e) {
+  draggedItem = this;
+  this.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', this.dataset.form);
+}
+
+function handleDragEnd(e) {
+  this.classList.remove('dragging');
+  draggedItem = null;
+}
+
+function handleDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+}
+
+function handleDragEnter(e) {
+  e.preventDefault();
+  if (this.classList.contains('drop-zone')) {
+    this.classList.add('drag-over');
+  }
+}
+
+function handleDragLeave(e) {
+  this.classList.remove('drag-over');
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  this.classList.remove('drag-over');
+
+  if (!this.classList.contains('drop-zone')) return;
+
+  const form = e.dataTransfer.getData('text/plain');
+  const sourceCellIndex = e.dataTransfer.getData('source-cell');
+  const targetCellIndex = this.dataset.index;
+
+  // Wenn aus einer anderen Zelle verschoben wird
+  if (sourceCellIndex && sourceCellIndex !== targetCellIndex) {
+    // Aus alter Zelle entfernen
+    droppedForms.delete(sourceCellIndex);
+    const sourceCell = document.querySelector(`.drop-zone[data-index="${sourceCellIndex}"]`);
+    if (sourceCell) {
+      sourceCell.innerHTML = '';
+      sourceCell.classList.remove('correct', 'incorrect');
+    }
+  }
+
+  // Form in Ziel-Zelle platzieren
+  placeFormInCell(this, form, targetCellIndex);
+}
+
+// --------------------------------------------------------------
+// Touch Event Handler für Mobile
+// --------------------------------------------------------------
+function handleTouchStart(e) {
+  if (this.classList.contains('used')) return;
+  
+  touchDragItem = this;
+  this.classList.add('dragging');
+  
+  // Touch-Position merken
+  const touch = e.touches[0];
+  this.dataset.touchX = touch.clientX;
+  this.dataset.touchY = touch.clientY;
+}
+
+function handleTouchMove(e) {
+  if (!touchDragItem) return;
+  e.preventDefault();
+  
+  const touch = e.touches[0];
+  
+  // Element unter dem Finger finden
+  const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+  if (!elementBelow) return;
+  
+  // Drop-Zone finden
+  const dropZone = elementBelow.closest('.drop-zone');
+  if (dropZone) {
+    document.querySelectorAll('.drop-zone').forEach(z => z.classList.remove('drag-over'));
+    dropZone.classList.add('drag-over');
+  }
+}
+
+function handleTouchEnd(e) {
+  if (!touchDragItem) return;
+  
+  touchDragItem.classList.remove('dragging');
+  
+  const touch = e.changedTouches[0];
+  const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+  
+  if (elementBelow) {
+    const dropZone = elementBelow.closest('.drop-zone');
+    if (dropZone) {
+      const form = touchDragItem.dataset.form;
+      const cellIndex = dropZone.dataset.index;
+      placeFormInCell(dropZone, form, cellIndex);
+    }
+  }
+  
+  document.querySelectorAll('.drop-zone').forEach(z => z.classList.remove('drag-over'));
+  touchDragItem = null;
+}
+
+// --------------------------------------------------------------
+// Form in Zelle platzieren
+// --------------------------------------------------------------
+function placeFormInCell(cell, form, cellIndex) {
+  // Vorherige Form aus dieser Zelle zurücksetzen
+  const previousForm = droppedForms.get(cellIndex);
+  if (previousForm) {
+    releaseDraggableItem(previousForm);
+  }
+
+  // Neue Form setzen (mit draggable span)
+  const span = document.createElement('span');
+  span.className = 'dropped-item';
+  span.textContent = form;
+  span.draggable = true;
+  span.dataset.form = form;
+
+  // Drag-Events für das bewegliche Element in der Zelle
+  span.addEventListener('dragstart', (e) => {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', form);
+    e.dataTransfer.setData('source-cell', cellIndex);
+    span.classList.add('dragging');
+  });
+
+  span.addEventListener('dragend', () => {
+    span.classList.remove('dragging');
+  });
+
+  // Touch-Events für Mobile
+  span.addEventListener('touchstart', handleCellTouchStart, { passive: false });
+  span.addEventListener('touchmove', handleCellTouchMove, { passive: false });
+  span.addEventListener('touchend', handleCellTouchEnd);
+
+  cell.innerHTML = '';
+  cell.appendChild(span);
+  droppedForms.set(cellIndex, form);
+
+  // Draggable-Pool-Item als "used" markieren
+  const draggable = document.querySelector(`.draggable-item[data-form="${form}"]`);
+  if (draggable) {
+    draggable.classList.add('used');
+    draggable.draggable = false;
+  }
+
+  // Zellen-Styling zurücksetzen (falls vorher geprüft)
+  cell.classList.remove('correct', 'incorrect');
+}
+
+// --------------------------------------------------------------
+// Touch-Handler für Elemente in Zellen (zum Verschieben)
+// --------------------------------------------------------------
+let cellTouchItem = null;
+let cellTouchSource = null;
+
+function handleCellTouchStart(e) {
+  e.preventDefault();
+  cellTouchItem = this;
+  cellTouchSource = this.parentElement;
+  this.classList.add('dragging');
+}
+
+function handleCellTouchMove(e) {
+  if (!cellTouchItem) return;
+  e.preventDefault();
+
+  const touch = e.touches[0];
+  const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+  if (!elementBelow) return;
+
+  // Drop-Zone oder Pool finden
+  const dropZone = elementBelow.closest('.drop-zone');
+  const pool = elementBelow.closest('.draggable-container');
+
+  document.querySelectorAll('.drop-zone, .draggable-container').forEach(z => z.classList.remove('drag-over'));
+
+  if (dropZone && dropZone !== cellTouchSource) {
+    dropZone.classList.add('drag-over');
+  } else if (pool) {
+    pool.classList.add('drag-over');
+  }
+}
+
+function handleCellTouchEnd(e) {
+  if (!cellTouchItem) return;
+
+  cellTouchItem.classList.remove('dragging');
+
+  const touch = e.changedTouches[0];
+  const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+
+  if (elementBelow) {
+    const dropZone = elementBelow.closest('.drop-zone');
+    const pool = elementBelow.closest('.draggable-container');
+    const form = cellTouchItem.dataset.form;
+    const sourceCell = cellTouchSource;
+
+    if (dropZone && dropZone !== sourceCell) {
+      // In neue Zelle verschieben
+      const targetIndex = dropZone.dataset.index;
+      const previousForm = droppedForms.get(targetIndex);
+      if (previousForm) {
+        releaseDraggableItem(previousForm);
+      }
+
+      // Aus alter Zelle entfernen
+      const sourceIndex = sourceCell.dataset.index;
+      droppedForms.delete(sourceIndex);
+      sourceCell.innerHTML = '';
+      sourceCell.classList.remove('correct', 'incorrect');
+
+      // In neue Zelle setzen
+      placeFormInCell(dropZone, form, targetIndex);
+    } else if (pool) {
+      // Zurück in den Pool
+      const sourceIndex = sourceCell.dataset.index;
+      droppedForms.delete(sourceIndex);
+      sourceCell.innerHTML = '';
+      sourceCell.classList.remove('correct', 'incorrect');
+      releaseDraggableItem(form);
+    }
+  }
+
+  document.querySelectorAll('.drop-zone, .draggable-container').forEach(z => z.classList.remove('drag-over'));
+  cellTouchItem = null;
+  cellTouchSource = null;
+}
+
+// --------------------------------------------------------------
+// Draggable Item freigeben (aus Zelle entfernen)
+// --------------------------------------------------------------
+function releaseDraggableItem(form) {
+  const draggable = document.querySelector(`.draggable-item[data-form="${form}"]`);
+  if (draggable) {
+    draggable.classList.remove('used');
+    draggable.draggable = true;
+  }
+}
+
+// --------------------------------------------------------------
+// Prüfen-Button Handler
+// --------------------------------------------------------------
+formsCheckBtn.addEventListener('click', checkFormsAnswers);
+
+function checkFormsAnswers() {
+  if (!currentFormsWord) return;
+  
+  let correct = 0;
+  let total = 0;
+  const dropZones = document.querySelectorAll('.drop-zone');
+  
+  dropZones.forEach(zone => {
+    const cellIndex = zone.dataset.index;
+    const correctForm = zone.dataset.correct;
+    const droppedForm = droppedForms.get(cellIndex);
+    
+    if (correctForm) {
+      total++;
+      
+      if (droppedForm === correctForm) {
+        zone.classList.add('correct');
+        zone.classList.remove('incorrect');
+        correct++;
+      } else if (droppedForm) {
+        zone.classList.add('incorrect');
+        zone.classList.remove('correct');
+      } else {
+        zone.classList.remove('correct', 'incorrect');
+      }
+    }
+  });
+  
+  // Feedback
+  const key = `${currentFormsWord.group}|${currentFormsWord.word}`;
+  const isComplete = correct === total;
+  
+  if (isComplete) {
+    formsFeedback.textContent = `Richtig! Alle ${total} Formen korrekt.`;
+    formsFeedback.className = 'forms-feedback success';
+
+    // Progress speichern
+    formsProgress[key] = {
+      solved: true,
+      attempts: (formsProgress[key]?.attempts || 0) + 1
+    };
+    saveFormsProgress();
+
+    formsCheckBtn.disabled = true;
+    formsSkipBtn.textContent = 'Nächstes';
+  } else {
+    formsFeedback.textContent = `${correct} von ${total} richtig. Versuche es nochmal!`;
+    formsFeedback.className = 'forms-feedback error';
+    
+    // Progress: Versuch zählen
+    formsProgress[key] = { 
+      solved: false, 
+      attempts: (formsProgress[key]?.attempts || 0) + 1 
+    };
+    saveFormsProgress();
+  }
+}
+
+// --------------------------------------------------------------
+// Zurücksetzen-Button Handler
+// --------------------------------------------------------------
+formsResetBtn.addEventListener('click', resetFormsGame);
+
+function resetFormsGame() {
+  droppedForms = new Map();
+  document.querySelectorAll('.drop-zone').forEach(zone => {
+    zone.innerHTML = '';
+    zone.classList.remove('correct', 'incorrect');
+  });
+  document.querySelectorAll('.draggable-item').forEach(item => {
+    item.classList.remove('used');
+    item.draggable = true;
+  });
+  formsFeedback.textContent = 'Zurückgesetzt. Versuche es nochmal!';
+  formsFeedback.className = 'forms-feedback info';
+  formsCheckBtn.disabled = false;
+}
+
+// --------------------------------------------------------------
+// Überspringen-Button Handler
+// --------------------------------------------------------------
+formsSkipBtn.addEventListener('click', () => {
+  showNextFormsWord();
+});
+
+// --------------------------------------------------------------
+// Hilfe-Button Handler
+// --------------------------------------------------------------
+formsHintBtn.addEventListener('click', giveHint);
+
+function giveHint() {
+  if (!currentFormsWord) return;
+
+  // Alle leeren Zellen finden
+  const emptyCells = [];
+  const allCells = document.querySelectorAll('.drop-zone');
+
+  allCells.forEach(cell => {
+    if (!cell.querySelector('.dropped-item')) {
+      const correctForm = cell.dataset.correct;
+      if (correctForm) {
+        emptyCells.push({
+          cell: cell,
+          index: cell.dataset.index,
+          correctForm: correctForm
+        });
+      }
+    }
+  });
+
+  if (emptyCells.length === 0) {
+    formsFeedback.textContent = 'Alle Felder sind bereits ausgefüllt!';
+    formsFeedback.className = 'forms-feedback info';
+    return;
+  }
+
+  // Zufällige leere Zelle auswählen
+  const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+  const form = randomCell.correctForm;
+  const cell = randomCell.cell;
+  const cellIndex = randomCell.index;
+
+  // Prüfen ob Form im Pool verfügbar ist
+  const draggable = document.querySelector(`.draggable-item[data-form="${form}"]:not(.used)`);
+  const alreadyInCell = Array.from(droppedForms.values()).includes(form);
+
+  if (!draggable && alreadyInCell) {
+    // Form ist bereits in einer anderen Zelle - dort entfernen
+    const occupiedCell = document.querySelector(`.drop-zone[data-index="${cellIndex}"]`);
+    if (occupiedCell && occupiedCell.querySelector('.dropped-item')) {
+      // Diese Zelle ist bereits korrekt besetzt, neue wählen
+      formsFeedback.textContent = 'Diese Form ist bereits korrekt platziert!';
+      formsFeedback.className = 'forms-feedback info';
+      return;
+    }
+  }
+
+  // Form in Zelle platzieren
+  placeFormInCell(cell, form, cellIndex);
+
+  // Visuelles Feedback
+  cell.classList.add('hint-applied');
+  setTimeout(() => cell.classList.remove('hint-applied'), 1000);
+
+  // Feedback-Text
+  const remaining = emptyCells.length - 1;
+  formsFeedback.textContent = `Hilfe: "${form}" wurde eingefügt. Noch ${remaining} Feld(er) leer.`;
+  formsFeedback.className = 'forms-feedback hint';
+}
+
+// --------------------------------------------------------------
+// Forms Progress speichern
+// --------------------------------------------------------------
+function saveFormsProgress() {
+  try {
+    localStorage.setItem(FORMS_STORAGE_KEYS.PROGRESS, JSON.stringify(formsProgress));
+  } catch (e) {
+    console.error('Failed to save forms progress:', e);
+  }
+}
+
+// --------------------------------------------------------------
+// Shuffle Array (Fisher-Yates)
+// --------------------------------------------------------------
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+// ==============================================================
+// Event Listeners für Mode Switch
+// ==============================================================
+modeFlashcardsBtn.addEventListener('click', () => switchMode('flashcards'));
+modeFormsBtn.addEventListener('click', () => switchMode('forms'));
+
+// --------------------------------------------------------------
+// Forms Filter Change Handler
+// --------------------------------------------------------------
+formsFilterSolved.addEventListener('change', () => {
+  // Speichern und neue Wort laden
+  try {
+    localStorage.setItem(FORMS_STORAGE_KEYS.FILTER_SOLVED, JSON.stringify(formsFilterSolved.checked));
+  } catch (e) {
+    console.error('Failed to save filter setting:', e);
+  }
+  showNextFormsWord();
+});

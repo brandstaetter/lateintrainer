@@ -12,7 +12,18 @@
 <body>
   <h1>Lateinvokabeln: Flashcards mit Vocabularium-Auswahl</h1>
 
-  <!-- Container für die Flashcard -->
+  <!-- Modus-Umschalter -->
+  <div class="mode-switcher" role="tablist" aria-label="Lernmodus">
+    <button id="mode-flashcards" class="mode-btn active" role="tab" aria-selected="true">
+      Flashcards
+    </button>
+    <button id="mode-forms" class="mode-btn" role="tab" aria-selected="false">
+      Formen (Deklination/Konjugation)
+    </button>
+  </div>
+
+  <!-- FLASHCARD MODE -->
+  <div id="flashcard-mode" class="game-mode active">
   <div class="flashcard-container" role="main" aria-label="Vokabel-Trainer">
     <div class="flashcard" id="flashcard" role="region" aria-label="Flashcard" tabindex="0">
       <div class="front" id="card-front" aria-label="Vorderseite">
@@ -46,8 +57,8 @@
   <p id="progress-info" role="status" aria-live="polite" aria-atomic="true"></p>
   
   <!-- Keyboard-Hilfe -->
-  <details class="keyboard-help">
-    <summary>Tastenkürzel</summary>
+  <details class="keyboard-help" id="flashcard-help">
+    <summary>Tastenkürzel (Flashcards)</summary>
     <ul>
       <li><kbd>Leertaste</kbd> / <kbd>Enter</kbd> – Karte umdrehen</li>
       <li><kbd>←</kbd> / <kbd>↑</kbd> – Vorherige Vokabel</li>
@@ -57,6 +68,69 @@
       <li><kbd>F</kbd> – Filter umschalten</li>
     </ul>
   </details>
+
+  <details class="keyboard-help hidden" id="forms-help">
+    <summary>Tastenkürzel (Formen-Modus)</summary>
+    <ul>
+      <li><kbd>Enter</kbd> – Prüfen</li>
+      <li><kbd>Esc</kbd> – Zurücksetzen</li>
+      <li><kbd>→</kbd> – Nächstes Wort (nach erfolgreicher Lösung)</li>
+    </ul>
+  </details>
+
+  </div>
+  <!-- END FLASHCARD MODE -->
+
+  <!-- FORMS MODE (Deklination/Konjugation) -->
+  <div id="forms-mode" class="game-mode">
+    <div class="forms-container">
+      <h2 id="forms-word-title">Wort: -</h2>
+      <p id="forms-word-type">Typ: -</p>
+      
+      <!-- Drag-Source: Verfügbare Formen -->
+      <div class="forms-source">
+        <h3>Verfügbare Formen (ziehe in die Tabelle):</h3>
+        <div id="draggable-forms" class="draggable-container">
+          <!-- Draggable items werden hier generiert -->
+        </div>
+      </div>
+
+      <!-- Drop-Target: Kasus/Personen-Tabelle -->
+      <div class="forms-target">
+        <h3>Richte die Formen ein:</h3>
+        <table id="forms-grid" class="forms-grid">
+          <thead>
+            <tr id="forms-header">
+              <!-- Dynamisch generiert -->
+            </tr>
+          </thead>
+          <tbody id="forms-body">
+            <!-- Dynamisch generiert -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Filter: Gelöste ausblenden -->
+      <div class="forms-filter">
+        <label class="forms-filter-label">
+          <input type="checkbox" id="forms-filter-solved" />
+          Gelöste Wörter ausblenden
+        </label>
+      </div>
+
+      <!-- Aktionen -->
+      <div class="forms-actions">
+        <button id="forms-check-btn" class="forms-btn primary">Prüfen</button>
+        <button id="forms-hint-btn" class="forms-btn hint">Hilfe</button>
+        <button id="forms-reset-btn" class="forms-btn">Zurücksetzen</button>
+        <button id="forms-skip-btn" class="forms-btn">Überspringen</button>
+      </div>
+
+      <!-- Feedback -->
+      <div id="forms-feedback" class="forms-feedback" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+  <!-- END FORMS MODE -->
 
   <!-- Container für die Vocabularium-Checkboxen -->
   <div class="vocabularium-select-container">

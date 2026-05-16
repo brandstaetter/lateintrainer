@@ -1,0 +1,72 @@
+### Vocabularium 1
+schola;Noun;2nd F;schola|scholae|scholae|scholam|schola|scholae|scholae|scholarum|scholis|scholas|scholae|scholis
+amica;Noun;2nd F;amica|amicae|amicae|amicam|amica|amicae|amicae|amicarum|amicis|amicas|amicae|amicis
+discipula;Noun;2nd F;discipula|discipulae|discipulae|discipulam|discipula|discipulae|discipulae|discipularum|discipulis|discipulas|discipulae|discipulis
+pensum;Noun;2nd N;pensum|pensi|penso|pensum|pensum|penso|pensa|pensorum|pensis|pensa|pensa|pensis
+amicus;Noun;2nd M;amicus|amici|amico|amicum|amice|amico|amici|amicorum|amicis|amicos|amici|amicis
+discipulus;Noun;2nd M;discipulus|discipuli|discipulo|discipulum|discipule|discipulo|discipuli|discipulorum|discipulis|discipulos|discipuli|discipulis
+
+### Vocabularium 2
+magister;Noun;2nd M;magister|magistri|magistro|magistrum|magister|magistro|magistri|magistrorum|magistris|magistros|magistri|magistris
+lingua;Noun;2nd F;lingua|linguae|linguae|linguam|lingua|linguae|linguae|linguarum|linguis|linguas|linguis|linguae
+liber;Noun;2nd M;liber|libri|libro|librum|liber|libro|libri|librorum|libris|libros|libri|libris
+verbum;Noun;2nd N;verbum|verbi|verbo|verbum|verbum|verbo|verba|verborum|verbis|verba|verba|verbis
+puer;Noun;2nd M;puer|pueri|puero|puerum|puer|puero|pueri|puerorum|pueris|pueros|pueri|pueris
+puella;Noun;2nd F;puella|puellae|puellae|puellam|puella|puellae|puellae|puellarum|puellis|puellas|puellis|puellae
+oculus;Noun;2nd M;oculus|oculi|oculo|oculum|ocule|oculo|oculi|oculorum|oculis|oculos|oculi|oculis
+
+### Vocabularium 3
+Roma;Noun;1st F;Roma|Romae|Romae|Romam|Roma|Romae|Romae|Romarum|Romis|Romas|Romis|Romae
+via;Noun;1st F;via|viae|viae|viam|via|viae|viae|viarum|viis|vias|viis|viae
+aedificium;Noun;2nd N;aedificium|aedificii|aedificio|aedificium|aedificium|aedificio|aedificia|aedificiorum|aedificiis|aedificia|aedificia|aedificiis
+spectaculum;Noun;2nd N;spectaculum|spectaculi|spectaculo|spectaculum|spectaculum|spectaculo|spectacula|spectaculorum|spectaculis|spectacula|spectacula|spectaculis
+statua;Noun;1st F;statua|statuae|statuae|statuam|statua|statuae|statuae|statuarum|statuis|statuas|statuis|statuae
+
+### Vocabularium 4
+mensa;Noun;1st F;mensa|mensae|mensae|mensam|mensa|mensae|mensae|mensarum|mensis|mensas|mensis|mensae
+amicitia;Noun;3rd F;amicitia|amicitiae|amicitiae|amicitiam|amicitia|amicitiae|amicitiae|amicitiarum|amicitiis|amicitias|amicitiae|amicitiis
+virtus;Noun;3rd F;virtus|virtutis|virtuti|virtutem|virtus|virtute|virtutes|virtutum|virtutibus|virtutes|virtutes|virtutibus
+consul;Noun;3rd M;consul|consulis|consuli|consulem|consul|consule|consules|consulum|consulibus|consules|consules|consulibus
+lex;Noun;3rd F;lex|legis|legi|legem|lex|lege|leges|legum|legibus|leges|leges|legibus
+homō;Noun;3rd M;homō|hominis|homini|hominem|homo|homine|homines|hominum|hominibus|homines|homines|hominibus
+
+### Vocabularium 5
+pater;Noun;3rd M;pater|patris|patri|patrem|pater|patre|patres|patrum|patribus|patres|patres|patribus
+mater;Noun;3rd F;mater|matris|matri|matrem|mater|matre|matres|matrum|matribus|matres|matres|matribus
+frater;Noun;3rd M;frater|fratris|fratri|fratrem|frater|fratre|fratres|fratrum|fratribus|fratres|fratres|fratribus
+urbs;Noun;3rd F;urbs|urbis|urbi|urbem|urbs|urbe|urbes|urbium|urbibus|urbes|urbes|urbibus
+mare;Noun;3rd N;mare|maris|mari|mare|mare|mari|maria|marium|maribus|maria|maria|maribus
+
+### Vocabularium 6
+sedet;Verb;1st Conj;sedeo|sedes|sedet|sedemus|sedetis|sedent|sedi|sedisti|sedit|sedimus|sedistis|sederunt|sederam|sederas|sederat|sederamus|sederatis|sederant|sedebo|sedebis|sedebit|sedebimus|sedebitis|sedebunt
+ridet;Verb;2nd Conj;rideo|rides|ridet|ridemus|ridetis|rident|ridi|ridisti|ridit|ridimus|ridistis|riderunt|rideram|rideras|riderat|rideramus|rideratis|riderant|ridebo|ridebis|ridebit|ridebimus|ridebitis|ridebunt
+laudat;Verb;1st Conj;laudo|laudas|laudat|laudamus|laudatis|laudant|laudavi|laudavisti|laudavit|laudavimus|laudavistis|laudaverunt|laudaveram|laudaveras|laudaverat|laudaveramus|laudaveratis|laudaverant|laudabo|laudabis|laudabit|laudabimus|laudabitis|laudabunt
+clamat;Verb;1st Conj;clamo|clamas|clamat|clamamus|clamatis|clamant|clamavi|clamavisti|clamavit|clamavimus|clamavistis|clamaverunt|clamaveram|clamaveras|clamaverat|clamaveramus|clamaveratis|clamaverant|clamabo|clamabis|clamabit|clamabimus|clamabitis|clamabunt
+
+### Vocabularium 7
+docet;Verb;2nd Conj;doceo|doces|docet|docemus|docetis|docent|docui|docuisti|docuit|docuimus|docuistis|docuerunt|docueram|docueras|docuerat|docueramus|docueratis|docuerant|docebo|docebis|docebit|docebimus|docebitis|docebunt
+exspectat;Verb;1st Conj;exspecto|exspectas|exspectat|exspectamus|exspectatis|exspectant|exspectavi|exspectavisti|exspectavit|exspectavimus|exspectavistis|exspectaverunt|exspectaveram|exspectaveras|exspectaverat|exspectaveramus|exspectaveratis|exspectaverant|exspectabo|exspectabis|exspectabit|exspectabimus|exspectabitis|exspectabunt
+intrat;Verb;1st Conj;intro|intras|intrat|intramus|intratis|intrant|intravi|intravisti|intravit|intravimus|intravistis|intraverunt|intraveram|intraveras|intraverat|intraveramus|intraveratis|intraverant|intrabo|intrabis|intrabit|intrabimus|intrabitis|intrabunt
+amat;Verb;1st Conj;amo|amas|amat|amamus|amatis|amant|amavi|amavisti|amavit|amavimus|amavistis|amaverunt|amaveram|amaveras|amaverat|amaveramus|amaveratis|amaverant|amabo|amabis|amabit|amabimus|amabitis|amabunt
+habet;Verb;2nd Conj;habeo|habes|habet|habemus|habetis|habent|habui|habuisti|habuit|habuimus|habuistis|habuerunt|habueram|habueras|habuerat|habueramus|habueratis|habuerant|habebo|habebis|habebit|habebimus|habebitis|habebunt
+spectat;Verb;1st Conj;specto|spectas|spectat|spectamus|spectatis|spectant|spectavi|spectavisti|spectavit|spectavimus|spectavistis|spectaverunt|spectaveram|spectaveras|spectaverat|spectaveramus|spectaveratis|spectaverant|spectabo|spectabis|spectabit|spectabimus|spectabitis|spectabunt
+
+### Vocabularium 8
+ambulo;Verb;1st Conj;ambulo|ambulas|ambulat|ambulamus|ambulatis|ambulant|ambulavi|ambulavisti|ambulavit|ambulavimus|ambulavistis|ambulaverunt|ambulaveram|ambulaveras|ambulaverat|ambulaveramus|ambulaveratis|ambulaverant|ambulabo|ambulabis|ambulabit|ambulabimus|ambulabitis|ambulabunt
+video;Verb;2nd Conj;video|vides|videt|videmus|videtis|vident|vidi|vidisti|vidit|vidimus|vidistis|viderunt|videram|videras|viderat|videramus|videratis|viderant|videbo|videbis|videbit|videbimus|videbitis|videbunt
+monstro;Verb;1st Conj;monstro|monstras|monstrat|monstramus|monstratis|monstrant|monstravi|monstravisti|monstravit|monstravimus|monstravistis|monstraverunt|monstraveram|monstraveras|monstraverat|monstraveramus|monstraveratis|monstraverant|monstrabo|monstrabis|monstrabit|monstrabimus|monstrabitis|monstrabunt
+cogitat;Verb;1st Conj;cogito|cogitas|cogitat|cogitamus|cogitatis|cogitant|cogitavi|cogitavisti|cogitavit|cogitavimus|cogitavistis|cogitaverunt|cogitaveram|cogitaveras|cogitaverat|cogitaveramus|cogitaveratis|cogitaverant|cogitabo|cogitabis|cogitabit|cogitabimus|cogitabitis|cogitabunt
+monet;Verb;2nd Conj;moneo|mones|monet|monemus|monetis|monent|monui|monuisti|monuit|monuimus|monuistis|monuerunt|monueram|monueras|monuerat|monueramus|monueratis|monuerant|monebo|monebis|monebit|monebimus|monebitis|monebunt
+
+### Vocabularium 9
+laborat;Verb;1st Conj;laboro|laboras|laborat|laboramus|laboratis|laborant|laboravi|laboravisti|laboravit|laboravimus|laboravistis|laboraverunt|laboraveram|laboraveras|laboraverat|laboraveramus|laboraveratis|laboraverant|laborabo|laborabis|laborabit|laborabimus|laborabitis|laborabunt
+interrogat;Verb;1st Conj;interrogo|interrogas|interrogat|interrogamus|interrogatis|interrogant|interrogavi|interrogavisti|interrogavit|interrogavimus|interrogavistis|interrogaverunt|interrogaveram|interrogaveras|interrogaverat|interrogaveramus|interrogaveratis|interrogaverant|interrogabo|interrogabis|interrogabit|interrogabimus|interrogabitis|interrogabunt
+respondet;Verb;2nd Conj;respondeo|respondes|respondet|respondemus|respondetis|respondent|respondi|respondisti|respondit|respondimus|respondistis|responderunt|responderam|responderas|responderat|responderamus|responderatis|responderant|respondebo|respondebis|respondebit|respondebimus|respondebitis|respondebunt
+gaudet;Verb;2nd Conj;gaudeo|gaudea|gaudet|gaudeamus|gaudeatis|gaudent|gavisus sum|gavisa es|gavisa est|gavisi sumus|gavisae estis|gavisi sunt
+
+### Vocabularium 10
+sum;Verb;Irregular;sum|es|est|sumus|estis|sunt|fui|fuisti|fuit|fuimus|fuistis|fuerunt|eram|eras|erat|eramus|eratis|erant|ero|eris|erit|erimus|eritis|erunt
+possum;Verb;Irregular;possum|potes|potest|possumus|potestis|possunt|potui|potuisti|potuit|potuimus|potuistis|potuerunt|potueram|potueras|potuerat|potueramus|potueratis|potuerant|potero|poteris|poterit|poterimus|poteritis|poterunt
+volo;Verb;Irregular;volo|vis|vult|volumus|vultis|volunt|volui|voluisti|voluit|voluimus|voluistis|voluerunt|volueram|volueras|voluerat|volueramus|volueratis|voluerant|volam|voles|volet|volemus|voletis|volent
+nolo;Verb;Irregular;nolo|non vis|non vult|nolumus|non vultis|nolunt|nolui|noluisti|noluit|noluimus|noluistis|noluerunt|nolueram|nolueras|noluerat|nolueramus|nolueratis|noluerant|nolam|noles|nolet|nolemus|noletis|nolent
+malo;Verb;Irregular;malo|mavis|mavult|malumus|mavultis|malunt|malui|maluisti|maluit|maluimus|maluistis|maluerunt|malueram|malueras|maluerat|malueramus|malueratis|maluerant|malam|males|malet|malemus|maletis|malent
