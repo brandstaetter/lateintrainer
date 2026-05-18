@@ -1083,6 +1083,21 @@ function handleDragStart(e) {
 function handleDragEnd(e) {
   this.classList.remove('dragging');
   draggedItem = null;
+  
+  // Reset pool items that weren't successfully placed
+  if (this.classList.contains('used')) {
+    const form = this.dataset.form;
+    let inCell = false;
+    document.querySelectorAll('.drop-zone').forEach(cell => {
+      const droppedItem = cell.querySelector('.dropped-item');
+      if (droppedItem && droppedItem.dataset.form === form) {
+        inCell = true;
+      }
+    });
+    if (!inCell) {
+      this.classList.remove('used');
+    }
+  }
 }
 
 function handleDragOver(e) {
