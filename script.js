@@ -1514,3 +1514,145 @@ formsFilterSolved.addEventListener('change', () => {
   }
   showNextFormsWord();
 });
+
+// ==============================================================
+// Automatic Update Check System
+// Checks every 5 minutes for new data versions online
+// ==============================================================
+const UPDATE_CONFIG = {
+  checkInterval: 5 * 60 * 1000, // 5 minutes
+  versionUrl: './version.json',
+  localStorageKey: 'lateintrainer_lastVersion',
+  hashKeys: ['formsHash', 'vocabHash']
+};
+
+let updateCheckInterval = null;
+let updateNotificationShown = false;
+
+async function checkForUpdates() {
+  // Skip if already showing notification
+  if (updateNotificationShown) return;
+
+  try {
+    // Add cache-buster to prevent caching
+    const cacheBuster = `?t=${Date.now()}`;
+    const response = await fetch(UPDATE_CONFIG.versionUrl + cacheBuster, {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' },
+      // Silent fail on network errors - no error thrown
+      signal: AbortSignal.timeout(10000) // 10 second timeout
+    });
+
+    if (!response.ok) {
+      // Server returned error - silently ignore
+      return;
+    }
+
+    const remoteVersion = await response.json();
+    const currentVersion = localStorage.getItem(UPDATE_CONFIG.localStorageKey);
+
+    // If no version stored yet, store current and skip
+    if (!currentVersion) {
+      localStorage.setItem(UPDATE_CONFIG.localStorageKey, remoteVersion.version);
+      // Also store hashes
+      UPDATE_CONFIG.hashKeys.forEach(key => {
+        if (remoteVersion[key]) {
+          localStorage.setItem(`lateintrainer_${key}`, remoteVersion[key]);
+        }
+      });
+      return;
+    }
+
+    // Check if version changed
+    const versionChanged = remoteVersion.version !== currentVersion;
+
+    // Check if any content hashes changed
+    let hashesChanged = false;
+    UPDATE_CONFIG.hashKeys.forEach(key => {
+      const storedHash = localStorage.getItem(`lateintrainer_${key}`);
+      const remoteHash = remoteVersion[key];
+      if (remoteHash && storedHash !== remoteHash) {
+        hashesChanged = true;
+      }
+    });
+
+    // Show notification if version OR content changed
+    if (versionChanged || hashesChanged) {
+      showUpdateNotification(remoteVersion);
+    }
+  } catch (error) {
+    // Network error, timeout, or other issue - silently ignore
+    // No console.error to avoid spamming users
+  }
+}
+
+function showUpdateNotification(versionInfo) {
+  updateNotificationShown = true;
+
+  // Create notification element
+  const notification = document.createElement('div');
+  notification.id = 'update-notification';
+  notification.className = 'update-notification';
+  notification.innerHTML = `
+    <div class="update-content">
+      <span class="update-icon">📚</span>
+      <div class="update-text">
+        <strong>Neue Vokabel-Daten verfügbar!</strong>
+        <span>Version ${versionInfo.version} ist online.</span>
+      </div>
+      <button id="update-reload-btn" class="update-btn">Jetzt aktualisieren</button>
+      <button id="update-dismiss-btn" class="update-btn secondary">Später</button>
+    </div>
+  `;
+
+  document.body.appendChild(notification);
+
+  // Handle reload button
+  notification.querySelector('#update-reload-btn').addEventListener('click', () => {
+    localStorage.setItem(UPDATE_CONFIG.localStorageKey, versionInfo.version);
+    // Save all hashes
+    UPDATE_CONFIG.hashKeys.forEach(key => {
+      if (versionInfo[key]) {
+        localStorage.setItem(`lateintrainer_${key}`, versionInfo[key]);
+      }
+    });
+    window.location.reload();
+  });
+
+  // Handle dismiss button
+  notification.querySelector('#update-dismiss-btn').addEventListener('click', () => {
+    notification.remove();
+    updateNotificationShown = false;
+    // Remember dismissed version but keep checking
+    localStorage.setItem(UPDATE_CONFIG.localStorageKey, versionInfo.version);
+  });
+}
+
+function startUpdateChecker() {
+  // Initial check after 30 seconds (let page fully load first)
+  setTimeout(checkForUpdates, 30000);
+
+  // Then check every 5 minutes
+  updateCheckInterval = setInterval(checkForUpdates, UPDATE_CONFIG.checkInterval);
+}
+
+function stopUpdateChecker() {
+  if (updateCheckInterval) {
+    clearInterval(updateCheckInterval);
+    updateCheckInterval = null;
+  }
+}
+
+// Start checking when page loads
+startUpdateChecker();
+
+// Stop checking when page is hidden (save battery)
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    stopUpdateChecker();
+  } else {
+    startUpdateChecker();
+    // Immediate check when becoming visible
+    checkForUpdates();
+  }
+});

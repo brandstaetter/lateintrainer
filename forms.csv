@@ -70,3 +70,125 @@ possum;Verb;Irregular;possum|potes|potest|possumus|potestis|possunt|potui|potuis
 volo;Verb;Irregular;volo|vis|vult|volumus|vultis|volunt|volui|voluisti|voluit|voluimus|voluistis|voluerunt|volueram|volueras|voluerat|volueramus|volueratis|voluerant|volam|voles|volet|volemus|voletis|volent
 nolo;Verb;Irregular;nolo|non vis|non vult|nolumus|non vultis|nolunt|nolui|noluisti|noluit|noluimus|noluistis|noluerunt|nolueram|nolueras|noluerat|nolueramus|nolueratis|noluerant|nolam|noles|nolet|nolemus|noletis|nolent
 malo;Verb;Irregular;malo|mavis|mavult|malumus|mavultis|malunt|malui|maluisti|maluit|maluimus|maluistis|maluerunt|malueram|malueras|maluerat|malueramus|malueratis|maluerant|malam|males|malet|malemus|maletis|malent
+
+### Vocabularium 11
+Iuppiter;Noun;3rd M;Iuppiter|Iovis|Iovi|Iovem|Iuppiter|Iove|Ioves|Iovum|Iovibus|Ioves|Ioves|Iovibus
+insula;Noun;1st F;insula|insulae|insulae|insulam|insula|insulā|insulae|insularum|insulis|insulas|insulae|insulis
+
+### Vocabularium 12
+pater;Noun;3rd M;pater|patris|patri|patrem|pater|patre|patres|patrum|patribus|patres|patres|patribus
+filius;Noun;2nd M;filius|filii|filio|filium|fili|filio|filii|filiorum|filiis|filios|filii|filiis
+mater;Noun;3rd F;mater|matris|matri|matrem|mater|matre|matres|matrum|matribus|matres|matres|matribus
+soror;Noun;3rd F;soror|sororis|sorori|sororem|soror|sorore|sorores|sororum|sororibus|sorores|sorores|sororibus
+nuntius;Noun;2nd M;nuntius|nuntii|nuntio|nuntium|nuntie|nuntiō|nuntii|nuntiorum|nuntiis|nuntios|nuntii|nuntiis
+via;Noun;1st F;via|viae|viae|viam|via|viā|viae|viarum|viis|vias|viae|viis
+ventus;Noun;2nd M;ventus|venti|vento|ventum|vente|ventō|venti|ventorum|ventis|ventos|venti|ventis
+
+### Vocabularium 13
+amor;Noun;3rd M;amor|amoris|amori|amorem|amor|amore|amores|amorum|amoribus|amores|amores|amoribus
+dea;Noun;1st F;dea|deae|deae|deam|dea|deā|deae|dearum|deis|deas|deae|deis
+templum;Noun;2nd N;templum|templi|templo|templum|templum|templō|templa|templorum|templis|templa|templa|templis
+consilium;Noun;2nd N;consilium|consilii|consilio|consilium|consilium|consiliō|consilia|consiliorum|consiliis|consilia|consilia|consiliis
+
+### Vocabularium 14
+cena;Noun;1st F;cena|cenae|cenae|cenam|cena|cenā|cenae|cenarum|cenis|cenas|cenae|cenis
+facinus;Noun;3rd N;facinus|facinoris|facinori|facinus|facinus|facinore|facinora|facinorum|facinoribus|facinora|facinora|facinoribus
+prudentia;Noun;1st F;prudentia|prudentiae|prudentiae|prudentiam|prudentia|prudentiā|prudentiae|prudentiarum|prudentiis|prudentias|prudentiae|prudentiis
+arbor;Noun;3rd F;arbor|arboris|arbori|arborem|arbor|arbore|arbores|arborum|arboribus|arbores|arbores|arboribus
+sitis;Noun;3rd F;sitis|sitis|siti|sitem|sitis|site|sitēs|sitium|sitibus|sitēs|sitēs|sitibus
+fames;Noun;3rd F;fames|famis|fami|famem|fames|fame|famēs|famium|famibus|famēs|famēs|famibus
+scelus;Noun;3rd N;scelus|sceleris|sceleri|scelus|scelus|scelere|scelera|scelerum|sceleribus|scelera|scelera|sceleribus
+mors;Noun;3rd F;mors|mortis|morti|mortem|mors|morte|mortēs|mortuum|mortibus|mortēs|mortēs|mortibus
+natura;Noun;1st F;natura|naturae|naturae|naturam|natura|naturā|naturae|naturarum|naturis|naturas|naturae|naturis
+genus;Noun;3rd N;genus|generis|generi|genus|genus|genere|genera|generum|generibus|genera|genera|generibus
+saxum;Noun;2nd N;saxum|saxi|saxo|saxum|saxum|saxō|saxa|saxorum|saxis|saxa|saxa|saxis
+vis;Noun;3rd F Irreg;vis|vis|vi|vim|vis|vi|virēs|virium|viribus|virēs|virēs|viribus
+
+### Vocabularium 15
+regina;Noun;1st F;regina|reginae|reginae|reginam|regina|reginā|reginae|reginarum|reginis|reginas|reginae|reginis
+uxor;Noun;3rd F;uxor|uxoris|uxori|uxorem|uxor|uxore|uxores|uxorum|uxoribus|uxores|uxores|uxoribus
+domus;Noun;4th F;domus|domus|domui|domum|domus|domū|domūs|domuum|domibus|domōs|domūs|domibus
+lux;Noun;3rd F;lux|lucis|luci|lucem|lux|luce|lucēs|lucum|lucibus|lucēs|lucēs|lucibus
+imperium;Noun;2nd N;imperium|imperiī|imperiō|imperium|imperium|imperiō|imperia|imperiōrum|imperiīs|imperia|imperia|imperiīs
+condicio;Noun;3rd F;condicio|condicionis|condicioni|condicionem|condicio|condicione|condicionēs|condicionum|condicionibus|condicionēs|condicionēs|condicionibus
+aurum;Noun;2nd N;aurum|aurī|aurō|aurum|aurum|aurō|aura|aurōrum|aurīs|aura|aura|aurīs
+equus;Noun;2nd M;equus|equī|equō|equum|equus|equō|equī|equōrum|equīs|equōs|equī|equīs
+frater;Noun;3rd M;frater|fratris|fratri|fratrem|frater|fratre|fratrēs|fratrum|fratribus|fratrēs|fratrēs|fratribus
+Apollo;Noun;3rd M;Apollo|Apollinis|Apollini|Apollinem|Apollo|Apolline|Apollinēs|Apollinum|Apollinibus|Apollinēs|Apollinēs|Apollinibus
+moenia;Noun;3rd N Pl;moenia|moenium|moenibus|moenia|moenia|moenibus|moenia|moenium|moenibus|moenia|moenia|moenibus
+
+### Vocabularium 16
+natio;Noun;3rd F;natio|nationis|nationi|nationem|natio|natione|nationēs|nationum|nationibus|nationēs|nationēs|nationibus
+crux;Noun;3rd F;crux|crucis|cruci|crucem|crux|cruce|crucēs|crucum|crucibus|crucēs|crucēs|crucibus
+littera;Noun;1st F;littera|litterae|litterae|litteram|littera|litterā|litterae|litterarum|litteris|litteras|litterae|litteris
+iuvenis;Noun;3rd M;iuvenis|iuvenis|iuveni|iuvenem|iuvenis|iuvene|iuvenēs|iuvenum|iuvenibus|iuvenēs|iuvenēs|iuvenibus
+orator;Noun;3rd M;orator|oratoris|oratori|oratorem|orator|oratore|oratorēs|oratorum|oratoribus|oratorēs|oratorēs|oratoribus
+senatus;Noun;4th M;senatus|senatus|senatui|senatum|senatus|senatū|senatūs|senatuum|senatibus|senatūs|senatūs|senatibus
+exercitus;Noun;4th M;exercitus|exercitus|exercitui|exercitum|exercitus|exercitū|exercitūs|exercituum|exercitibus|exercitūs|exercitūs|exercitibus
+
+### Vocabularium 17
+civis;Noun;3rd C;civis|civis|civi|civem|civis|cive|civēs|civium|civibus|civēs|civēs|civibus
+lex;Noun;3rd F;lex|legis|legi|legem|lex|lege|legēs|legum|legibus|legēs|legēs|legibus
+legio;Noun;3rd F;legio|legionis|legioni|legionem|legio|legione|legionēs|legionum|legionibus|legionēs|legionēs|legionibus
+
+### Vocabularium 18
+civitas;Noun;3rd F;civitas|civitatis|civitati|civitatem|civitas|civitate|civitatēs|civitatum|civitatibus|civitatēs|civitatēs|civitatibus
+Gallia;Noun;1st F;Gallia|Galliae|Galliae|Galliam|Gallia|Galliā|Galliae|Galliarum|Galliis|Gallias|Galliae|Galliis
+amicitia;Noun;1st F;amicitia|amicitiae|amicitiae|amicitiam|amicitia|amicitiā|amicitiae|amicitiarum|amicitiis|amicitias|amicitiae|amicitiis
+
+### Vocabularium 19
+potestas;Noun;3rd F;potestas|potestatis|potestati|potestatem|potestas|potestate|potestatēs|potestatum|potestatibus|potestatēs|potestatēs|potestatibus
+dictator;Noun;3rd M;dictator|dictatoris|dictatori|dictatorem|dictator|dictatore|dictatorēs|dictatorum|dictatoribus|dictatorēs|dictatorēs|dictatoribus
+mos;Noun;3rd M;mos|moris|mori|morem|mos|more|morēs|morum|moribus|morēs|morēs|moribus
+finis;Noun;3rd M;finis|finis|fini|finem|finis|fine|finēs|finium|finibus|finēs|finēs|finibus
+regnum;Noun;2nd N;regnum|regnī|regnō|regnum|regnum|regnō|regna|regnōrum|regnīs|regna|regna|regnīs
+donum;Noun;2nd N;donum|donī|donō|donum|donum|donō|dona|donōrum|donīs|dona|dona|donīs
+
+### Vocabularium 20
+mulier;Noun;3rd F;mulier|mulieris|mulieri|mulierem|mulier|muliere|mulierēs|mulierum|mulieribus|mulierēs|mulierēs|mulieribus
+serva;Noun;1st F;serva|servae|servae|servam|serva|servā|servae|servarum|servis|servas|servae|servis
+
+### Vocabularium 21
+discordia;Noun;1st F;discordia|discordiae|discordiae|discordiam|discordia|discordiā|discordiae|discordiarum|discordiis|discordias|discordiae|discordiis
+controversia;Noun;1st F;controversia|controversiae|controversiae|controversiam|controversia|controversiā|controversiae|controversiarum|controversiis|controversias|controversiae|controversiis
+Troia;Noun;1st F;Troia|Troiae|Troiae|Troiam|Troia|Troiā|Troiae|Troiarum|Troiis|Troias|Troiae|Troiis
+
+### Vocabularium 22
+ira;Noun;1st F;ira|irae|irae|iram|ira|irā|irae|irarum|iris|iras|irae|iris
+frater;Noun;3rd M;frater|fratris|fratri|fratrem|frater|fratre|fratrēs|fratrum|fratribus|fratrēs|fratrēs|fratribus
+Apollo;Noun;3rd M;Apollo|Apollinis|Apollini|Apollinem|Apollo|Apolline|Apollinēs|Apollinum|Apollinibus|Apollinēs|Apollinēs|Apollinibus
+
+### Vocabularium 23
+Ulixes;Noun;3rd M;Ulixes|Ulixis|Ulixi|Ulixem|Ulixes|Ulixe|Ulixēs|Ulixum|Ulixibus|Ulixēs|Ulixēs|Ulixibus
+arx;Noun;3rd F;arx|arcis|arci|arcem|arx|arce|arcēs|arcum|arcibus|arcēs|arcēs|arcibus
+vinum;Noun;2nd N;vinum|vinī|vinō|vinum|vinum|vinō|vina|vinōrum|vinīs|vina|vina|vinīs
+victoria;Noun;1st F;victoria|victoriae|victoriae|ictoriam|victoria|victoriā|victoriae|victoriarum|victoriis|victorias|victoriae|victoriis
+flamma;Noun;1st F;flamma|flammae|flammae|flammam|flamma|flammā|flammae|flammarum|flammis|flammas|flammae|flammis
+
+### Vocabularium 24
+veritas;Noun;3rd F;veritas|veritatis|veritati|veritatem|veritas|veritate|veritatēs|veritatum|veritatibus|veritatēs|veritatēs|veritatibus
+causa;Noun;1st F;causa|causae|causae|causam|causa|causā|causae|causarum|causis|causas|causae|causis
+
+### Vocabularium 25
+poeta;Noun;1st M;poeta|poetae|poetae|poetam|poeta|poetā|poetae|poetarum|poetis|poetas|poetae|poetis
+exitus;Noun;4th M;exitus|exitus|exitui|exitum|exitus|exitū|exitūs|exituum|exitibus|exitūs|exitūs|exitibus
+scientia;Noun;1st F;scientia|scientiae|scientiae|scientiam|scientia|scientiā|scientiae|scientiarum|scientiis|scientias|scientiae|scientiis
+usus;Noun;4th M;usus|usus|usui|usum|usus|usū|usūs|usuum|usibus|usūs|usūs|usibus
+ignis;Noun;3rd M;ignis|ignis|igni|ignem|ignis|igne|ignēs|ignium|ignibus|ignēs|ignēs|ignibus
+frons;Noun;3rd F;frons|frontis|fronti|frontem|frons|fronte|frontēs|frontum|frontibus|frontēs|frontēs|frontibus
+
+### Vocabularium 26
+incendium;Noun;2nd N;incendium|incendiī|incendiō|incendium|incendium|incendiō|incendia|incendiōrum|incendiīs|incendia|incendia|incendiīs
+princeps;Noun;3rd M;princeps|principis|principi|principem|princeps|principe|principēs|principum|principibus|principēs|principēs|principibus
+magnitudo;Noun;3rd F;magnitudo|magnitudinis|magnitudini|magnitudinem|magnitudo|magnitudine|magnitudinēs|magnitudinum|magnitudinibus|magnitudinēs|magnitudinēs|magnitudinibus
+fama;Noun;1st F;fama|famae|famae|famam|fama|famā|famae|famarum|famis|famas|famae|famis
+numerus;Noun;2nd M;numerus|numerī|numerō|numerum|numere|numerō|numerī|numerōrum|numerīs|numerōs|numerī|numerīs
+
+### Vocabularium 27
+tenēre;Verb;2nd Conj;teneo|tenes|tenet|tenemus|tenetis|tenent|tenui|tenuisti|tenuit|tenuimus|tenuistis|tenuerunt|tenueram|tenueras|tenuerat|tenueramus|tenueratis|tenuerant|tenebo|tenebis|tenebit|tenebimus|tenebitis|tenebunt
+abstinēre;Verb;2nd Conj;abstineo|abstines|abstinet|abstinemus|abstinetis|abstinent|abstinui|abstinuisti|abstinuit|abstinuimus|abstinuistis|abstinuerunt|abstinueram|abstinueras|abstinuerat|abstinueramus|abstinueratis|abstinuerant|abstinebo|abstinebis|abstinebit|abstinebimus|abstinebitis|abstinebunt
+incendere;Verb;3rd Conj;incendo|incendis|incendit|incendimus|incenditis|incendunt|incendi|incendisti|incendit|incendimus|incendistis|incenderunt|incenderam|incenderas|incenderat|incenderamus|incenderatis|incenderant|incendam|incendes|incendet|incendemus|incendetis|incendent
+obtinēre;Verb;2nd Conj;obtineo|obtines|obtinet|obtinemus|obtinetis|obtinent|obtinui|obtinuisti|obtinuit|obtinuimus|obtinuistis|obtinuerunt|obtinueram|obtinueras|obtinuerat|obtinueramus|obtinueratis|obtinuerant|obtinebo|obtinebis|obtinebit|obtinebimus|obtinebitis|obtinebunt
+caedere;Verb;3rd Conj;caedo|caedis|caedit|caedimus|caeditis|caedunt|cecidi|caedisti|cecidit|cecidimus|caedistis|ceciderunt|cecideram|cecideras|ceciderat|cecideramus|cecideratis|ceciderant|caedam|caedes|caedet|caedemus|caedetis|caedent
+dēponere;Verb;3rd Conj;depono|deponis|deponit|deponimus|deponitis|deponunt|deposui|deposuisti|deposuit|deposuimus|deposuistis|deposuerunt|deposueram|deposueras|deposuerat|deposueramus|deposueratis|deposuerant|deponam|depones|deponet|deponemus|deponetis|deponent
+trahēre;Verb;3rd Conj;traho|trahis|trahit|trahimus|trahitis|trahunt|traxi|trahisti|traxit|traximus|trahistis|traxerunt|traxeram|traxeras|traxerat|traxeramus|traxeratis|traxerant|traham|trahes|trahet|trahemus|trahetis|trahent
