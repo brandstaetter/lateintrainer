@@ -816,8 +816,8 @@ function renderFormsGame() {
     : 'Ziehe die Formen in die richtigen Felder';
   formsFeedback.className = progress.solved ? 'forms-feedback success' : 'forms-feedback info';
   
-  // Buttons aktivieren
-  formsCheckBtn.disabled = progress.solved;
+  // Buttons aktivieren (Prüfen immer erlauben, auch bei bereits gelösten Wörtern)
+  formsCheckBtn.disabled = false;
   formsResetBtn.disabled = false;
   formsSkipBtn.textContent = 'Überspringen';
 
